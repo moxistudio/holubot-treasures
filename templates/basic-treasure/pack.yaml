@@ -1,0 +1,64 @@
+meta:
+  id: your-treasure-id
+  name: Basic Treasure Template
+  kind: treasure
+  version: 0.1.0
+  description: Minimal template for a chat helper or lightweight tool Treasure.
+  author: your-name
+  api_version: holubot.treasure/v1
+
+activation:
+  trigger_keywords:
+    - summarize this
+    - quick draft
+    - short answer
+  intents:
+    - summarize
+    - draft
+  hotpath_allowed: true
+  route_preference: nimbus
+
+skill:
+  entry: SKILL.md
+  source_type: template
+
+tools:
+  builtin:
+    - llm_call
+    - send_to_user
+  mcp_servers:
+    required: []
+    optional: []
+
+governance:
+  trust_level: auto
+  forbidden_tools:
+    - shell_exec
+    - file_delete
+    - credential_access
+
+runtime:
+  kind: nimbus
+  steps:
+    - id: draft_response
+      action: llm_call
+      params:
+        prompt: |
+          You are a concise Treasure assistant.
+          User request:
+          {task}
+
+          Produce:
+          1) one short answer
+          2) key bullets
+          3) one practical next step
+        max_tokens: 400
+        temperature: 0.2
+      output: draft_response
+    - id: reply
+      action: send_to_user
+      depends_on:
+        - draft_response
+      params:
+        content: "{draft_response}"
+

@@ -1,0 +1,134 @@
+meta:
+  id: weekly-report
+  name: Weekly Report
+  kind: treasure
+  version: 5.0.0
+  description: 广告公司周报多 worker 控制平面与稳定草稿骨架
+  origin: runtime_route_spec
+  api_version: holubot.treasure/v1
+  demo_bundle: true
+activation:
+  trigger_keywords:
+  - 周报
+  - 本周总结
+  - 总结本周
+  - 周工作总结
+  intents:
+  - weekly_report
+  hotpath_allowed: false
+  route_preference: marshal
+skill:
+  entry: SKILL.md
+  source_type: runtime_route_spec
+tools:
+  builtin:
+  - query_work_logs
+  - query_long_memory
+  - knowledge_search
+  - llm_call
+  - send_to_user
+  mcp_servers:
+    required: []
+    optional: []
+governance:
+  trust_level: confirm
+  forbidden_tools:
+  - shell_exec
+  - file_delete
+  - credential_access
+runtime:
+  kind: marshal
+  steps:
+  - id: recall
+    action: query_work_logs
+    params:
+      week: ""
+    output: work_logs
+  - id: memory
+    action: query_long_memory
+    params:
+      limit: 5
+    output: bg_memory
+  - id: knowledge_context
+    action: knowledge_search
+    params:
+      query: "广告公司周报 写作规范 输出口径 角色 风险 来源 碎片改写 {task}"
+      top_k: 5
+    output: knowledge_context
+  - id: material_digest
+    action: llm_call
+    params:
+      prompt: |
+        你是广告公司周报材料整理器，只整理底稿，不直接输出最终周报。
+
+        用户补充要求与材料：
+        {task}
+
+        本周工作日志：
+        {recall}
+
+        相关长期记忆：
+        {memory}
+
+        规则：
+        - 输入优先级：用户补充 > 工作日志 > 长期记忆
+        - 本次只选择一种口径：concise / boss / detailed，未指定时默认 detailed
+        - 优先按客户/品牌/项目归组，不按周一到周五流水账
+        - “沟通/同步/跟进/开会”必须补推进结果，否则合并或删减
+        - 缺失事实统一标记“待补充”，禁止编造
+
+        输出结构：
+        [输出口径]
+        - 口径：
+        - 选择原因：
+
+        [角色判断]
+        - 角色：
+        - 证据线索：
+
+        [按客户/项目归组素材]
+        - 项目：
+          - 本周总结素材：
+          - 已完成素材：
+          - 进行中素材：
+          - 风险/待协调素材：
+          - 下周计划素材：
+
+        [待补充]
+        - ...
+      max_tokens: 700
+      temperature: 0.1
+  - id: draft
+    action: llm_call
+    params:
+      prompt: |
+        你是广告公司周报助手，请基于材料输出结构化周报草稿。
+
+        用户补充要求：
+        {task}
+
+        本周工作日志：
+        {recall}
+
+        相关长期记忆：
+        {memory}
+
+        结构化底稿：
+        {material_digest}
+
+        输出要求：
+        - 只输出一个版本：简洁版 / 给老板看的汇报版 / 带风险与下周计划的详细版
+        - 四段结构固定：本周总结、已完成事项、进行中事项、下周计划
+        - 优先按客户/品牌/项目归组
+        - 进行中事项要写清：当前进度、风险来源、影响、待协调项
+        - 不确定信息写“待补充”
+        - 不要按周一到周五平铺，不要写口语流水账
+        - 没有数据时不要编造数据
+        - 如果使用了知识规范，在结尾增加“参考来源”（只列标题）
+      max_tokens: 1200
+      temperature: 0.15
+knowledge:
+  enabled: true
+  source_dirs:
+  - knowledge
+  retrieval_mode: on_demand

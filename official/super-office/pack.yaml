@@ -1,0 +1,188 @@
+meta:
+  id: super-office
+  name: Super Office
+  kind: treasure
+  version: 5.0.0
+  description: Medium-lane office treasure for document reading, template filling, spreadsheet updates, and deliverable generation.
+  origin: official_staging_sample
+  api_version: holubot.treasure/v1
+  demo_bundle: false
+
+activation:
+  trigger_keywords:
+    - 整理附件
+    - 读这个文档
+    - 填这个模板
+    - 处理表格
+    - 生成文档
+    - 生成报告
+    - office
+    - super office
+  intents:
+    - office_ops
+    - document_ops
+    - report_generation
+  hotpath_allowed: false
+  route_preference: nimbus
+
+skill:
+  entry: SKILL.md
+  source_type: official_staging_sample
+
+tools:
+  builtin:
+    - read_document
+    - fill_template
+    - fill_sheet
+    - generate_report
+    - llm_call
+    - send_to_user
+  mcp_servers:
+    required:
+      - office-fill-mcp
+    optional: []
+
+governance:
+  trust_level: auto
+  forbidden_tools:
+    - shell_exec
+    - file_delete
+    - credential_access
+
+runtime:
+  kind: nimbus
+  steps:
+    - id: route_action
+      action: llm_call
+      params:
+        prompt: |
+          You are the action router for official treasure "Super Office".
+          Output exactly one lowercase token:
+          - read_document
+          - fill_template
+          - fill_sheet
+          - generate_report
+
+          Routing guidance:
+          - Reading/summarizing document -> read_document
+          - Filling DOCX placeholders/table row2 from structured fields -> fill_template
+          - Writing spreadsheet cells by map -> fill_sheet
+          - Producing final docx/xlsx deliverable from template+data -> generate_report
+
+          If user asks for unsupported capability (for example PPT generation),
+          still output the closest valid action and let downstream explain limitation.
+
+          User request:
+          {task}
+        max_tokens: 24
+        temperature: 0.0
+      output: selected_action
+    - id: contract_precheck
+      action: llm_call
+      depends_on:
+        - route_action
+      params:
+        prompt: |
+          You are Super Office input contract checker.
+          User request: {task}
+          Selected action: {selected_action}
+
+          Check whether key references/fields seem missing.
+          Keep it concise and practical:
+          - mention missing refs (file_ref/path/uri, template_ref/template_path/template_uri, workbook ref)
+          - mention missing structured maps (field_map/cell_map/data map) if needed
+          - if user asks for unsupported output like PPT, explicitly mark as unsupported in current P0
+          Output short markdown only.
+        max_tokens: 240
+        temperature: 0.0
+      output: precheck_result
+    - id: compose_result
+      action: llm_call
+      depends_on:
+        - route_action
+        - contract_precheck
+      params:
+        prompt: |
+          You are HoluBot official treasure "Super Office".
+
+          User request: {task}
+          Selected action: {selected_action}
+          Contract precheck: {precheck_result}
+
+          Output requirements:
+          - Start with recommended action and whether execution can proceed now.
+          - If required refs are missing, provide exact next input needed.
+          - Keep tone like an execution copilot taking over office tasks, not customer-service script.
+          - Supported P0 scope is:
+            - read document text
+            - fill DOCX template placeholders
+            - fill spreadsheet cells by map
+            - generate report outputs in docx/xlsx
+          - Do not claim PPT generation or advanced formatting guarantees.
+        max_tokens: 780
+        temperature: 0.2
+  runtime_hints:
+    fixed_execution_tier: medium
+    user_invocable: true
+    route_family: office_ops
+
+contracts:
+  input:
+    accepted_refs:
+      - file_ref
+      - path
+      - uri
+    source_of_truth: holubot_asset_hub
+    required_policy:
+      - All files are referenced through asset refs or resolvable paths/uris.
+      - The treasure does not maintain a private original-file repository.
+    required_by_action:
+      read_document:
+        - "file_ref|path|uri"
+      fill_template:
+        - "template_ref|template_path|template_uri"
+        - "field_map"
+        - "mode(optional, e.g. table_row2)"
+      fill_sheet:
+        - "workbook_ref|workbook_path|file_ref|path|uri"
+        - "cell_map"
+        - "output_path(optional)"
+      generate_report:
+        - "report_type(docx|xlsx)"
+        - "template_ref|template_path|template_uri|file_ref|path|uri"
+        - "data_map|field_map|cell_map"
+  output:
+    result_fields:
+      - conclusion
+      - action
+      - deliverable_summary
+      - output_path
+    error_fields:
+      - error_hint
+      - next_step
+  fallback:
+    missing_input_ref:
+      summary: Missing file reference, document operation not executed.
+      next_step: Provide file_ref/path/uri from the unified asset hub.
+    missing_template_ref:
+      summary: Missing template reference, template/report operation not executed.
+      next_step: Provide template_ref/template_path/template_uri and required map fields.
+    missing_cell_map:
+      summary: Missing cell map for sheet filling.
+      next_step: Provide a cell_map such as {"A1":"Q1", "Sheet1!B2":"42"}.
+    unsupported_report_type:
+      summary: Unsupported report type for current P0.
+      next_step: Use report_type docx or xlsx.
+    external_tool_unavailable:
+      summary: Office MCP tool is currently unavailable.
+      next_step: Retry later, or ask for a markdown draft as temporary output.
+
+output_contract:
+  format: markdown
+  max_tokens: 900
+  require_sources: false
+  allow_fallback: true
+  rules:
+    - Keep outputs execution-oriented: action, readiness, missing inputs, next step.
+    - Align capability claims to office-fill-mcp P0/PB scope.
+    - Do not promise PPT generation or perfect layout fidelity.

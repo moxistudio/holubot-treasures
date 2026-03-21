@@ -1,0 +1,63 @@
+meta:
+  id: ai-sentinel
+  name: AI Sentinel
+  kind: treasure
+  version: 5.0.0
+  description: Subscription intelligence sentinel shell for capturing frontier signals, triage, and briefing; the knowledge base is managed separately and not bundled in this stage.
+  origin: market_stage
+  api_version: holubot.treasure/v1
+  demo_bundle: true
+activation:
+  trigger_keywords:
+  - AI哨兵
+  - 前沿哨兵
+  - 情报哨兵
+  - 前沿信号
+  - 热点雷达
+  intents:
+  - sentinel
+  - frontier_radar
+  hotpath_allowed: false
+  route_preference: marshal
+skill:
+  entry: SKILL.md
+  source_type: runtime_route_spec
+tools:
+  builtin:
+  - source_collector
+  - structured_worker
+  - structured_writer
+  - sync_worker
+  - send_to_user
+  mcp_servers:
+    required: []
+    optional: []
+governance:
+  trust_level: confirm
+  forbidden_tools:
+  - credential_access
+  - file_delete
+runtime:
+  kind: marshal
+  steps:
+  - id: source_collection
+    action: source_collector
+  - id: triage
+    action: structured_worker
+  - id: brief
+    action: structured_writer
+  - id: publish
+    action: sync_worker
+knowledge:
+  enabled: false
+  source_dirs: []
+  retrieval_mode: on_demand
+output_contract:
+  format: markdown
+  max_tokens: 1600
+  require_sources: true
+  allow_fallback: true
+  rules:
+  - 对外最少产出 signals.json、daily_brief.json、daily_brief.md
+  - 高优事项必须包含 source、evidence、impact、next_action、confidence
+  - 无法核实来源时必须明确标记为待验证

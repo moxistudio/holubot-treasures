@@ -1,0 +1,171 @@
+meta:
+  id: deep-search
+  name: Deep Search
+  kind: treasure
+  version: 5.0.0
+  description: 研究型 Treasure，基于 SDR v2 提供五档深度研究与任务状态追踪
+  origin: runtime_route_spec
+  api_version: holubot.treasure/v1
+  demo_bundle: true
+activation:
+  trigger_keywords:
+  - 搜索
+  - 查一下
+  - 深度搜索
+  - 深度调研
+  - 深度研究
+  - 研究进度
+  - /research
+  - '@research'
+  intents:
+  - search
+  - research
+  hotpath_allowed: false
+  route_preference: nimbus
+skill:
+  entry: SKILL.md
+  source_type: runtime_route_spec
+tools:
+  builtin:
+  - sdr_flash
+  - sdr_research
+  - sdr_status
+  - llm_call
+  - send_to_user
+  mcp_servers:
+    required: []
+    optional: []
+governance:
+  trust_level: auto
+  forbidden_tools:
+  - shell_exec
+  - file_delete
+  - credential_access
+runtime:
+  kind: nimbus
+  steps:
+  - id: route_mode
+    action: llm_call
+    params:
+      prompt: |
+        你是 SDR v2 研究链路路由器。请根据用户请求只输出一个小写词：
+        flash / quick / standard / deep / pro / status
+
+        路由规则：
+        - 查询任务状态或出现 job_id：status
+        - 速览、近况、2-3 条重点：flash
+        - 轻量研究、简报式调研：quick
+        - 默认专题梳理、对比分析：standard
+        - 明确要求深度调研：deep
+        - 明确要求专业尽调/战略级分析：pro
+
+        用户请求：
+        {task}
+      max_tokens: 12
+      temperature: 0.0
+    output: route_mode
+  - id: extract_job_id
+    action: llm_call
+    params:
+      prompt: |
+        请从用户请求中提取唯一 SDR job_id。
+        - 如果不是状态查询：输出 NONE
+        - 如果没有明确 job_id：输出 NONE
+        - 只输出 job_id 或 NONE，不要解释
+
+        用户请求：
+        {task}
+      max_tokens: 24
+      temperature: 0.0
+    output: job_id
+  - id: flash_research
+    action: sdr_flash
+    depends_on:
+    - route_mode
+    condition: "{route_mode} == flash"
+    params:
+      query: "{task}"
+      language: zh
+    output: flash_result
+  - id: quick_research
+    action: sdr_research
+    depends_on:
+    - route_mode
+    condition: "{route_mode} == quick"
+    params:
+      query: "{task}"
+      depth: quick
+      language: zh
+      save_to_file: false
+    output: quick_result
+  - id: standard_research
+    action: sdr_research
+    depends_on:
+    - route_mode
+    condition: "{route_mode} == standard"
+    params:
+      query: "{task}"
+      depth: standard
+      language: zh
+      save_to_file: false
+    output: standard_result
+  - id: deep_research
+    action: sdr_research
+    depends_on:
+    - route_mode
+    condition: "{route_mode} == deep"
+    params:
+      query: "{task}"
+      depth: deep
+      language: zh
+      save_to_file: true
+    output: deep_result
+  - id: pro_research
+    action: sdr_research
+    depends_on:
+    - route_mode
+    condition: "{route_mode} == pro"
+    params:
+      query: "{task}"
+      depth: pro
+      language: zh
+      save_to_file: true
+    output: pro_result
+  - id: check_status
+    action: sdr_status
+    depends_on:
+    - extract_job_id
+    condition: "{job_id} != NONE"
+    params:
+      job_id: "{job_id}"
+    output: status_result
+  - id: compose
+    action: llm_call
+    depends_on:
+    - route_mode
+    - extract_job_id
+    - flash_research
+    - quick_research
+    - standard_research
+    - deep_research
+    - pro_research
+    - check_status
+    params:
+      prompt: |
+        你是 HoluBot 的深度研究输出器。请基于上游 SDR 结果生成最终回复。
+
+        当前模式：{route_mode}
+        用户请求：{task}
+
+        输出要求：
+        - 先给一句话结论或当前状态
+        - status 模式且无有效 job_id 时，直接提示补充 job_id
+        - 保留来源意识，不暴露 JSON 字段名
+        - 默认顺序：结论/状态、关键发现、关键来源、待验证、任务编号、产物文件、下一步建议
+        - 关键发现 3-6 条，无有效信息时不硬编
+        - 有来源时列 1-5 条关键来源（优先标题，可带链接）
+        - 有不确定信息时单列“待验证”
+        - deep/pro 模式必须清楚呈现结论-发现-来源三层
+        - 不写空标题，不写“暂无/无”等占位句
+      max_tokens: 1200
+      temperature: 0.2

@@ -1,0 +1,91 @@
+version: 1
+updated_at: "2026-03-21"
+scope: weekly_report_main_controller
+input_policy:
+  unified_material_store_only: true
+  consume_by_ref_only: true
+  allowed_reference_types:
+  - source_ref
+  - artifact_ref
+  forbidden:
+  - private_raw_attachment_copy
+
+contracts:
+  weekly_plan:
+    type: object
+    required:
+    - report_profile
+    - delivery_mode
+    - template_required
+    - research_required
+    - selected_projects
+    - missing_fields
+    - source_scope
+    properties:
+      report_profile:
+        enum: [concise, boss, detailed]
+      delivery_mode:
+        enum: [markdown, docx_fill, pptx, json_bundle]
+      template_required:
+        type: boolean
+      research_required:
+        type: boolean
+      selected_projects:
+        type: array
+      missing_fields:
+        type: array
+      source_scope:
+        type: array
+      subcalls_reserved:
+        type: object
+        description: >
+          仅占位引用子 Treasure 调用意图；P0 样板不在本包内实现 invoke_treasure 协议。
+
+  weekly_report.json:
+    type: object
+    required:
+    - report_profile
+    - delivery_mode
+    - projects
+    - highlights
+    - risks
+    - next_actions
+    - sources
+    - missing_fields
+    properties:
+      report_profile:
+        enum: [concise, boss, detailed]
+      delivery_mode:
+        enum: [markdown, docx_fill, pptx, json_bundle]
+      projects:
+        type: array
+      highlights:
+        type: array
+      risks:
+        type: array
+      next_actions:
+        type: array
+      sources:
+        type: array
+        description: 仅存素材仓引用，不持久化原始附件副本。
+      missing_fields:
+        type: array
+      markdown_report:
+        type: string
+
+  revision_ticket:
+    type: object
+    required:
+    - status
+    - issues
+    - must_fix
+    - suggestions
+    properties:
+      status:
+        enum: [pass, revise]
+      issues:
+        type: array
+      must_fix:
+        type: array
+      suggestions:
+        type: array

@@ -1,0 +1,128 @@
+meta:
+  id: know-yourself
+  name: Know Yourself
+  kind: treasure
+  version: 5.0.0
+  description: User-initiated self-discovery treasure with lightweight quiz, reflection, and consent-first profile writeback.
+  origin: official_staging_sample
+  api_version: holubot.treasure/v1
+  demo_bundle: false
+
+activation:
+  trigger_keywords:
+    - 了解我自己
+    - 认识我自己
+    - 测测我
+    - MBTI
+    - 人格测试
+    - 性格测试
+    - 我是个什么样的人
+    - self discovery
+  intents:
+    - profile
+    - self_discovery
+  hotpath_allowed: false
+  route_preference: builtin
+
+skill:
+  entry: SKILL.md
+  source_type: official_staging_sample
+
+tools:
+  builtin:
+    - llm_call
+    - query_long_memory
+    - send_to_user
+  mcp_servers:
+    required: []
+    optional: []
+
+governance:
+  trust_level: auto
+  forbidden_tools:
+    - shell_exec
+    - file_delete
+    - credential_access
+
+runtime:
+  kind: builtin
+  steps:
+    - id: choose_mode
+      action: llm_call
+      params:
+        prompt: |
+          You are the mode router for the official treasure "Know Yourself".
+          Output exactly one lowercase token:
+          - quick_quiz
+          - reflection
+          - summary
+
+          Routing rules:
+          - If user asks for MBTI/personality test/quick test, output quick_quiz.
+          - If user asks to talk through current state, communication style, or self-understanding, output reflection.
+          - If user asks for synthesis/report based on previous answers, output summary.
+
+          User request:
+          {task}
+        max_tokens: 20
+        temperature: 0.0
+      output: quiz_mode
+    - id: detect_write_intent
+      action: llm_call
+      depends_on:
+        - choose_mode
+      params:
+        prompt: |
+          You detect whether the user is asking to save results into profile or long-term memory.
+          Output exactly one lowercase token:
+          - not_requested
+          - explicit_consent
+          - needs_consent
+
+          Rules:
+          - explicit_consent: user clearly agreed to save/store/write memory/profile.
+          - needs_consent: user wants save/write but has not clearly consented yet.
+          - not_requested: no save/write request.
+
+          User request:
+          {task}
+        max_tokens: 20
+        temperature: 0.0
+      output: consent_state
+    - id: compose_reply
+      action: llm_call
+      depends_on:
+        - choose_mode
+        - detect_write_intent
+      params:
+        prompt: |
+          You are HoluBot's official treasure "Know Yourself".
+
+          Current mode: {quiz_mode}
+          Consent state: {consent_state}
+          User request: {task}
+
+          Output requirements:
+          - If mode is quick_quiz: provide a lightweight quiz (4-8 questions), in small batches.
+          - If mode is reflection: first mirror the user's context with empathy, then ask 2-4 guided questions.
+          - If mode is summary: provide a concise human-style self-discovery summary with strengths, blind spots, and next-step suggestions.
+          - Never present this as diagnosis or absolute truth; frame as self-understanding reference.
+          - If consent_state is needs_consent, explicitly ask for consent before any profile/memory write.
+          - If consent_state is not_requested, proactively remind that profile/memory write needs explicit user consent.
+          - Keep tone warm, practical, and non-judgmental.
+        max_tokens: 950
+        temperature: 0.35
+  runtime_hints:
+    fixed_execution_tier: small
+    user_invocable: true
+    route_family: self_discovery
+
+output_contract:
+  format: markdown
+  max_tokens: 950
+  require_sources: false
+  allow_fallback: true
+  rules:
+    - Keep responses conversational, short-paragraph first, avoid heavy jargon.
+    - Always obtain explicit user consent before any profile or long-memory write.
+    - Results are for self-reflection reference, not medical or psychological diagnosis.

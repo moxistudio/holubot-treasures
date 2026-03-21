@@ -1,0 +1,103 @@
+schema_version: "1.0"
+treasures:
+  - id: know-yourself
+    name: Know Yourself
+    author: holubot-official
+    owner: official
+    category: profile
+    lane: small
+    verified: true
+    price: free
+    tags:
+      - profile
+      - self-awareness
+      - assessment
+    source_kind: official
+    knowledge:
+      enabled: false
+      note: "P0 profile treasure, no standalone knowledge base required."
+    demo_ready: true
+    description: Self-discovery treasure based on personality quick-check and profile signals.
+    repo_path: official/know-yourself
+
+  - id: deep-search
+    name: Deep Search
+    author: holubot-official
+    owner: official
+    category: research
+    lane: medium
+    verified: true
+    price: free
+    tags:
+      - research
+      - search
+      - sdr
+    source_kind: official
+    knowledge:
+      enabled: false
+      note: "Uses web research flow; dedicated internal knowledge base is optional."
+    demo_ready: true
+    description: Structured research treasure powered by multi-mode SDR-style search and synthesis.
+    repo_path: official/deep-search
+
+  - id: super-office
+    name: Super Office
+    author: holubot-official
+    owner: official
+    category: office
+    lane: medium
+    verified: true
+    price: free
+    tags:
+      - office
+      - document
+      - template
+    source_kind: official
+    knowledge:
+      enabled: false
+      note: "Execution-oriented office workflows; no mandatory knowledge base in P0."
+    demo_ready: true
+    description: Office execution treasure for document extraction, template filling, and deliverable output.
+    repo_path: official/super-office
+
+  - id: weekly-report
+    name: Weekly Report
+    author: holubot-official
+    owner: official
+    category: work
+    lane: large
+    verified: true
+    price: free
+    tags:
+      - weekly
+      - workflow
+      - reporting
+    source_kind: official
+    knowledge:
+      enabled: true
+      source_hint:
+        - knowledge
+        - source/references
+    demo_ready: true
+    description: Multi-worker weekly reporting treasure with stable structured output contracts.
+    repo_path: official/weekly-report
+
+  - id: ai-sentinel
+    name: AI Sentinel
+    author: holubot-official
+    owner: official
+    category: radar
+    lane: large
+    verified: false
+    price: paid
+    tags:
+      - intelligence
+      - subscription
+      - knowledge
+    source_kind: official
+    knowledge:
+      enabled: false
+      note: "Knowledge-base buildout is explicitly out of current P0 scope."
+    demo_ready: false
+    description: Subscription-style signal and intelligence treasure slot reserved for staged rollout.
+    repo_path: official/ai-sentinel

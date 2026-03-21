@@ -1,0 +1,33 @@
+name: Validate Treasures (P0)
+
+on:
+  pull_request:
+    paths:
+      - staging/holubot-treasures/**
+  push:
+    paths:
+      - staging/holubot-treasures/**
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: staging/holubot-treasures
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install validator deps
+        run: python -m pip install --upgrade pip pyyaml
+
+      - name: Validate catalog schema/basic fields
+        run: python scripts/validate_catalog.py catalog.yaml
+
+      - name: Validate treasure directories and pack files
+        run: python scripts/validate_treasures.py catalog.yaml
