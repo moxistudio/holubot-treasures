@@ -1,0 +1,37 @@
+{
+  "brief_date": "2026-03-15",
+  "generated_at": "2026-03-15T15:21:16Z",
+  "headline": "3 public signals ready for the daily brief; 3 internal memos tracked separately.",
+  "public_brief": {
+    "entry_count": 3,
+    "entries": [
+      {
+        "signal_id": "sig_mcp_ecosystem_agent_interoperability_keeps_converging_around_mcp_style_contracts",
+        "title": "Agent interoperability keeps converging around MCP style contracts",
+        "source_name": "MCP Ecosystem",
+        "published_at": "2026-03-12T00:00:00Z",
+        "summary": "Demo source describing a convergence trend around shared tool contracts, context exchange, and agent-to-agent interoperability.",
+        "impact_level": "high"
+      },
+      {
+        "signal_id": "sig_openai_responses_api_adds_compaction_and_computer_environment",
+        "title": "Responses API adds compaction and computer environment",
+        "source_name": "OpenAI",
+        "published_at": "2026-03-11T00:00:00Z",
+        "summary": "Demo source covering agent runtime improvements, compaction, and computer environment support as a reusable foundation for production agents.",
+        "impact_level": "high"
+      },
+      {
+        "signal_id": "sig_google_gemini_coding_workflows_keep_stretching_context_and_review_loops",
+        "title": "Coding workflows keep stretching context and review loops",
+        "source_name": "Google Gemini",
+        "published_at": "2026-03-13T00:00:00Z",
+        "summary": "Demo source focused on coding-agent workflow upgrades, longer context handling, and review-oriented execution patterns.",
+        "impact_level": "medium"
+      }
+    ]
+  },
+  "internal_only": {
+    "memo_count": 3
+  }
+}

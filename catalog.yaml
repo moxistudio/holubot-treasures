@@ -96,8 +96,8 @@ treasures:
       - knowledge
     source_kind: official
     knowledge:
-      enabled: false
-      note: "DR-4 operating knowledge scaffold now ships in-package, but the subscription-grade production corpus remains external in current P0 scope."
+      enabled: true
+      note: "DR-4 knowledge body, starter research corpus, and first frontier seed archive now ship in-package; the subscription-grade corpus can still be extended externally."
     demo_ready: false
-    description: Subscription-style AI intelligence Treasure with DR-4 source-tiering, signal-triage, and briefing scaffold, while the full production corpus remains externally managed.
+    description: Subscription-style AI intelligence Treasure with bundled DR-4 knowledge body, seeded frontier archive, and extensible event-centric memory for ongoing subscription research.
     repo_path: official/ai-sentinel

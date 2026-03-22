@@ -2,8 +2,8 @@ meta:
   id: ai-sentinel
   name: AI Sentinel
   kind: treasure
-  version: 5.2.0
-  description: Subscription intelligence Treasure with tiered source monitoring, structured triage, 5-minute briefs, starter source registry, and event-centric AI industry memory; the production corpus can be extended externally.
+  version: 5.3.0
+  description: Subscription intelligence Treasure with bundled DR-4 knowledge body, seeded frontier archive, tiered monitoring, structured triage, and event-centric AI industry memory; the production corpus can be extended externally.
   origin: market_stage
   api_version: holubot.treasure/v1
   demo_bundle: true
@@ -268,3 +268,4 @@ output_contract:
   - 无法核实来源时必须明确标记为待验证。
   - 默认输出应适合手机端 3-5 分钟扫描阅读。
   - 当实时信源不可用时，要明确指出缺失阶段，并给出下一步集成建议。
+  - 知识搜索优先复用已入包研究正文、事件条目、趋势条目与 seed archive，再决定是否调用外部补充源。

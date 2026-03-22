@@ -1,0 +1,54 @@
+version: 1
+updated_at: "2026-03-22"
+scope: ai_sentinel_knowledge_body
+summary: >
+  First packaged AI Sentinel knowledge body built from the DR-4 eight-model synthesis,
+  AI Sentinel product planning notes, and the holubot_frontier_latest seed archive.
+
+sections:
+  research:
+    description: Packaged research正文 and product knowledge.
+    items:
+      - research/dr4-synthesis.md
+      - research/product-and-workflow-thesis.md
+      - research/benchmark-daily-products.md
+      - research/retrieval-and-query-architecture.md
+      - research/pricing-and-compliance.md
+
+  schemas_and_policy:
+    description: Source, scoring, format, and schema policy files.
+    items:
+      - source-tiering.md
+      - source-registry.yaml
+      - signal-triage-rubric.md
+      - triage-scorecard.yaml
+      - daily-brief-format.md
+      - event-item-schema.md
+      - query-playbook.md
+
+  sample_structures:
+    description: Non-production sample artifacts for renderer and schema alignment.
+    items:
+      - sample-event-item.yaml
+      - sample-trend-item.yaml
+
+  event_items:
+    description: First real seeded EventItem records converted from the frontier archive.
+    items:
+      - event-items/2026-03-15-openai-responses-compaction.yaml
+      - event-items/2026-03-15-mcp-interop.yaml
+      - event-items/2026-03-15-gemini-coding-loops.yaml
+
+  trend_items:
+    description: First real seeded TrendItem records.
+    items:
+      - trend-items/2026-q1-agent-infra-convergence.yaml
+      - trend-items/2026-q1-coding-workflow-quality.yaml
+
+  seed_archive:
+    description: Archived frontier brief outputs used as initial seed corpus.
+    items:
+      - seeds/2026-03-15-frontier-manifest.json
+      - seeds/2026-03-15-frontier-signals.json
+      - seeds/2026-03-15-frontier-daily-brief.json
+      - seeds/2026-03-15-frontier-daily-brief.md

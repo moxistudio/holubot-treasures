@@ -1,0 +1,16 @@
+trend_id: trend-2026-q1-coding-workflow-quality
+version: 1
+title: Coding workflow quality is becoming more important than raw context-window marketing
+time_window: "2026-Q1"
+direction: emerging
+summary: >
+  The frontier seeds indicate a shift from headline context-size competition toward
+  more operational concerns such as review loops, stability, and developer workflow quality.
+supporting_events:
+  - evt-20260315-gemini-coding-loops
+counter_signals:
+  - Marketing still rewards raw benchmark and context-size narratives.
+confidence: 0.79
+implications:
+  - Content opportunities exist around practical workflow evaluation rather than benchmark hype.
+  - Product discovery should track review, iteration, and quality-assurance loops as first-class surfaces.

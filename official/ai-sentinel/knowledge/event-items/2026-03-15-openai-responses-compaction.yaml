@@ -1,0 +1,60 @@
+entry_id: evt-20260315-openai-responses-compaction
+parent_id: ""
+version: 1
+event_date: "2026-03-11"
+publish_date: "2026-03-11T00:00:00Z"
+effective_date: "2026-03-11"
+expiry_date: ""
+title: Responses API adds compaction and computer environment
+summary: >
+  Seeded frontier event indicating that agent runtime primitives such as compaction
+  and computer environment support are moving into a reusable platform layer for
+  production agents.
+key_quotes:
+  - Compaction is becoming a baseline primitive for long-running agents.
+  - A richer runtime lowers the amount of bespoke orchestration each product has to maintain.
+semantic_tags:
+  - agent
+  - memory
+  - runtime
+  - compaction
+companies:
+  - OpenAI
+people: []
+technologies:
+  - compaction
+  - computer environment
+  - agent runtime
+products:
+  - Responses API
+related_entries:
+  - evt-20260315-mcp-interop
+trend_ids:
+  - trend-2026-q1-agent-infra-convergence
+source_url: https://example.com/demo/openai-responses-runtime
+source_tier: tier_1
+multi_source_count: 1
+importance_score: 8.9
+confidence: 0.94
+freshness_score: 0.93
+public_safe: true
+impact_domains:
+  - strategy
+  - product
+  - content
+  - ops
+recommended_actions:
+  - Refresh HoluBot memory and context notes.
+  - Draft one public-safe architecture brief while the topic window is still open.
+content_ideas:
+  - architecture_judgment
+product_opportunities:
+  - Memory and runtime changes are creating room for reusable agent operations layers.
+internal_memo:
+  visibility: internal_only
+  linked_projects:
+    - holubot_v5
+    - frontier_radar
+  notes:
+    - Reuse the split between public brief and internal route notes in the future AI Sentinel app.
+    - Do not frame the internal project benefit as the external headline.

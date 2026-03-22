@@ -1,0 +1,18 @@
+trend_id: trend-2026-q1-agent-infra-convergence
+version: 1
+title: Agent infrastructure is converging around reusable runtime and interoperability primitives
+time_window: "2026-Q1"
+direction: accelerating
+summary: >
+  The frontier seeds show that agent products are no longer competing only on model
+  size or context length. Reusable runtime primitives and interop contracts are
+  becoming part of the baseline platform narrative.
+supporting_events:
+  - evt-20260315-openai-responses-compaction
+  - evt-20260315-mcp-interop
+counter_signals:
+  - Standardization remains uneven across vendors and ecosystems.
+confidence: 0.86
+implications:
+  - Sidecar and control-plane products may gain durability if they remain stack-flexible.
+  - Memory, context compaction, and protocol support should be treated as core capability layers.

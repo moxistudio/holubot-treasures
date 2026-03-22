@@ -1,0 +1,57 @@
+entry_id: evt-20260315-mcp-interop
+parent_id: ""
+version: 1
+event_date: "2026-03-12"
+publish_date: "2026-03-12T00:00:00Z"
+effective_date: "2026-03-12"
+expiry_date: ""
+title: Agent interoperability keeps converging around MCP style contracts
+summary: >
+  Seeded frontier event describing a convergence trend around shared tool contracts,
+  context exchange, and agent-to-agent interoperability.
+key_quotes:
+  - Protocol convergence can shrink the integration tax across future agent products.
+  - It creates a clearer opportunity window for sidecar products that sit beside existing assistants.
+semantic_tags:
+  - agent
+  - mcp
+  - interop
+  - protocol
+companies:
+  - MCP Ecosystem
+people: []
+technologies:
+  - MCP
+  - interoperability
+  - tool contracts
+products: []
+related_entries:
+  - evt-20260315-openai-responses-compaction
+trend_ids:
+  - trend-2026-q1-agent-infra-convergence
+source_url: https://example.com/demo/mcp-interop
+source_tier: tier_1
+multi_source_count: 1
+importance_score: 8.7
+confidence: 0.90
+freshness_score: 0.92
+public_safe: true
+impact_domains:
+  - strategy
+  - product
+  - content
+recommended_actions:
+  - Keep HoluBot sidecar-friendly and avoid deep chat-chain coupling.
+  - Track which protocol assumptions should become reusable shared core modules.
+content_ideas:
+  - ecosystem_trend
+product_opportunities:
+  - A sidecar product that turns protocol shifts into structured decisions can stay durable across assistant stacks.
+internal_memo:
+  visibility: internal_only
+  linked_projects:
+    - holubot_control_plane
+    - frontier_radar
+  notes:
+    - Treat protocol support as a shared core capability, not a UI-first feature.
+    - Keep internal experimentation notes private until the architecture settles.

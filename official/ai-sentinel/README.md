@@ -1,13 +1,13 @@
 # AI Sentinel
 
-**Steer the frontier signal pipeline** for subscription-grade AI intelligence delivery. This Treasure packages the DR-4 operating method into a marshal-style workflow: tiered source collection, structured signal triage, 5-minute daily briefing, and event-centric knowledge accumulation. The full production corpus can still be extended from your separately managed knowledge assets.
+**Steer the frontier signal pipeline** for subscription-grade AI intelligence delivery. This Treasure now includes not only the DR-4 operating method, but also a first packaged knowledge body: research notes, source registry, scoring policies, seeded event and trend items, and a frontier brief archive. The broader production corpus can still be extended from separately managed assets.
 
 ## Overview
 
 - **Type:** Marshal / subscription intelligence Treasure
 - **Lane:** Large
 - **Pricing posture:** Paid subscription or managed intelligence engagement
-- **Status:** Official Treasure with bundled operating scaffold; production-grade corpus remains extensible
+- **Status:** Official Treasure with bundled operating scaffold plus first knowledge-body release; production-grade corpus remains extensible
 
 ## Best For
 
@@ -41,7 +41,7 @@
 
 ### 4. Event-centric knowledge scaffold
 
-The packaged `knowledge/` folder now carries the operating scaffold distilled from the DR-4 eight-model report:
+The packaged `knowledge/` folder now carries both the operating scaffold and the first packaged knowledge body distilled from DR-4 and your existing frontier artifacts:
 
 - source tiering
 - triage rubric
@@ -49,6 +49,11 @@ The packaged `knowledge/` folder now carries the operating scaffold distilled fr
 - event item schema
 - query playbook
 - MVP rollout blueprint
+- benchmark product notes
+- retrieval and pricing notes
+- event items
+- trend items
+- archived frontier seed outputs
 
 ### 5. Paid-value posture
 
@@ -85,6 +90,8 @@ This Treasure is designed for a subscription intelligence product where the valu
 
 ## Bundled Knowledge Assets
 
+- [`knowledge/index.yaml`](knowledge/index.yaml)
+  top-level map of the packaged AI Sentinel knowledge body
 - [`knowledge/dr4-mvp-blueprint.md`](knowledge/dr4-mvp-blueprint.md)
 - [`knowledge/source-tiering.md`](knowledge/source-tiering.md)
 - [`knowledge/source-registry.yaml`](knowledge/source-registry.yaml)
@@ -95,15 +102,25 @@ This Treasure is designed for a subscription intelligence product where the valu
 - [`knowledge/sample-event-item.yaml`](knowledge/sample-event-item.yaml)
 - [`knowledge/sample-trend-item.yaml`](knowledge/sample-trend-item.yaml)
 - [`knowledge/query-playbook.md`](knowledge/query-playbook.md)
+- [`knowledge/research/`](knowledge/research)
+  packaged research正文 for product, retrieval, pricing, compliance, and benchmark context
+- [`knowledge/event-items/`](knowledge/event-items)
+  first real event-item seeds converted from frontier outputs
+- [`knowledge/trend-items/`](knowledge/trend-items)
+  first real trend-item seeds
+- [`knowledge/seeds/`](knowledge/seeds)
+  archived frontier brief and signal seeds
 - [`contracts.yaml`](contracts.yaml)
 
-## Starter Structured Assets
+## Structured Assets and Knowledge Body
 
-Beyond the markdown playbook, this package now includes machine-readable starter assets for faster integration:
+Beyond the markdown playbook, this package now includes both machine-readable starter assets and a first real knowledge body:
 
 - a starter source registry with tier, cadence, locale, and authority weight
 - a triage scorecard with thresholds, scoring weights, and discard patterns
 - sample `EventItem` and `TrendItem` records to anchor downstream schema work
+- first seeded real `EventItem` and `TrendItem` records derived from the frontier archive
+- packaged research正文 derived from DR-4 and the AI Sentinel app planning notes
 - example `signals.json` and `daily_brief.md` outputs for manual QA and renderer alignment
 
 ## Quick Try
@@ -143,7 +160,7 @@ The default daily format follows a 3-5 minute scan rhythm:
 
 ## Limitations
 
-- The bundled knowledge is an operating scaffold, not a full proprietary research corpus.
+- The bundled knowledge now includes a real starter正文 and seeded archive, but it is still not the complete long-horizon proprietary research corpus.
 - Live source connectors, paywalls, and channel delivery credentials are still environment-dependent.
 - High-value signals should still receive human review during MVP, especially when used for paid delivery.
 - China-market deployment should keep emphasizing lawful sources, traceability, and compliance-safe claims.

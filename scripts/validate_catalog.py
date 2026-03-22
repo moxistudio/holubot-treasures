@@ -131,8 +131,8 @@ def main() -> int:
         knowledge = ai_sentinel.get("knowledge")
         if not isinstance(knowledge, dict):
             errors.append("ai-sentinel.knowledge must be a mapping with scope metadata.")
-        elif knowledge.get("enabled") is not False:
-            errors.append("ai-sentinel.knowledge.enabled must be false in current P0 scope.")
+        elif knowledge.get("enabled") is not True:
+            errors.append("ai-sentinel.knowledge.enabled must be true now that the packaged KB body ships in current P0 scope.")
 
     if warnings:
         print("[WARN] Catalog warnings:")

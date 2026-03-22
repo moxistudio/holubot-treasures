@@ -1,0 +1,53 @@
+entry_id: evt-20260315-gemini-coding-loops
+parent_id: ""
+version: 1
+event_date: "2026-03-13"
+publish_date: "2026-03-13T00:00:00Z"
+effective_date: "2026-03-13"
+expiry_date: ""
+title: Coding workflows keep stretching context and review loops
+summary: >
+  Seeded frontier event focused on coding-agent workflow upgrades, longer context
+  handling, and review-oriented execution patterns.
+key_quotes:
+  - Longer context only matters when paired with stable review and iteration loops.
+  - This is a content and product cue for practical engineering workflows, not just bigger numbers.
+semantic_tags:
+  - coding
+  - context
+  - workflow
+companies:
+  - Google Gemini
+people: []
+technologies:
+  - coding agents
+  - review loops
+products:
+  - Gemini
+related_entries: []
+trend_ids:
+  - trend-2026-q1-coding-workflow-quality
+source_url: https://example.com/demo/gemini-coding-context
+source_tier: tier_1
+multi_source_count: 1
+importance_score: 7.4
+confidence: 0.88
+freshness_score: 0.91
+public_safe: true
+impact_domains:
+  - product
+  - content
+recommended_actions:
+  - Capture one brief on stable coding loops instead of raw context-window marketing.
+  - Compare which workflow assumptions should move into the sidecar backlog.
+content_ideas:
+  - workflow_review
+product_opportunities:
+  - Practical coding workflow analysis can become its own product and content wedge.
+internal_memo:
+  visibility: internal_only
+  linked_projects:
+    - holubot_runtime
+    - frontier_radar
+  notes:
+    - Prioritize operational loop quality over headline context size in internal notes.

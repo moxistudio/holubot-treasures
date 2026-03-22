@@ -1,0 +1,98 @@
+{
+  "schema_version": "0.1",
+  "generated_at": "2026-03-15T15:21:16Z",
+  "input_label": "built_in_demo",
+  "signal_count": 3,
+  "signals": [
+    {
+      "signal_event": {
+        "signal_id": "sig_openai_responses_api_adds_compaction_and_computer_environment",
+        "source_type": "official",
+        "source_name": "OpenAI",
+        "source_url": "https://example.com/demo/openai-responses-runtime",
+        "published_at": "2026-03-11T00:00:00Z",
+        "title": "Responses API adds compaction and computer environment",
+        "summary": "Demo source covering agent runtime improvements, compaction, and computer environment support as a reusable foundation for production agents.",
+        "topic_tags": ["agent", "memory", "runtime", "compaction"],
+        "confidence": 0.94,
+        "raw_refs": ["demo_seed", "design_brief"]
+      },
+      "public_analysis": {
+        "impact_assessment": {
+          "signal_id": "sig_openai_responses_api_adds_compaction_and_computer_environment",
+          "impact_level": "high",
+          "impact_domains": ["strategy", "product", "content", "ops"],
+          "why_it_matters": [
+            "Compaction is becoming a baseline primitive for long-running agents.",
+            "A richer runtime lowers the amount of bespoke orchestration each product has to maintain."
+          ],
+          "recommended_actions": [
+            "Refresh HoluBot memory and context notes.",
+            "Draft one public-safe architecture brief while the topic window is still open."
+          ],
+          "public_safe": true
+        }
+      }
+    },
+    {
+      "signal_event": {
+        "signal_id": "sig_mcp_ecosystem_agent_interoperability_keeps_converging_around_mcp_style_contracts",
+        "source_type": "official",
+        "source_name": "MCP Ecosystem",
+        "source_url": "https://example.com/demo/mcp-interop",
+        "published_at": "2026-03-12T00:00:00Z",
+        "title": "Agent interoperability keeps converging around MCP style contracts",
+        "summary": "Demo source describing a convergence trend around shared tool contracts, context exchange, and agent-to-agent interoperability.",
+        "topic_tags": ["agent", "mcp", "interop", "protocol"],
+        "confidence": 0.90,
+        "raw_refs": ["demo_seed", "design_brief"]
+      },
+      "public_analysis": {
+        "impact_assessment": {
+          "signal_id": "sig_mcp_ecosystem_agent_interoperability_keeps_converging_around_mcp_style_contracts",
+          "impact_level": "high",
+          "impact_domains": ["strategy", "product", "content"],
+          "why_it_matters": [
+            "Protocol convergence can shrink the integration tax across future agent products.",
+            "It creates a clearer opportunity window for sidecar products that sit beside existing assistants."
+          ],
+          "recommended_actions": [
+            "Keep HoluBot sidecar-friendly and avoid deep chat-chain coupling.",
+            "Track which protocol assumptions should become reusable shared core modules."
+          ],
+          "public_safe": true
+        }
+      }
+    },
+    {
+      "signal_event": {
+        "signal_id": "sig_google_gemini_coding_workflows_keep_stretching_context_and_review_loops",
+        "source_type": "official",
+        "source_name": "Google Gemini",
+        "source_url": "https://example.com/demo/gemini-coding-context",
+        "published_at": "2026-03-13T00:00:00Z",
+        "title": "Coding workflows keep stretching context and review loops",
+        "summary": "Demo source focused on coding-agent workflow upgrades, longer context handling, and review-oriented execution patterns.",
+        "topic_tags": ["coding", "context", "workflow"],
+        "confidence": 0.88,
+        "raw_refs": ["demo_seed", "design_brief"]
+      },
+      "public_analysis": {
+        "impact_assessment": {
+          "signal_id": "sig_google_gemini_coding_workflows_keep_stretching_context_and_review_loops",
+          "impact_level": "medium",
+          "impact_domains": ["product", "content"],
+          "why_it_matters": [
+            "Longer context only matters when paired with stable review and iteration loops.",
+            "This is a content and product cue for practical engineering workflows, not just bigger numbers."
+          ],
+          "recommended_actions": [
+            "Capture one brief on stable coding loops instead of raw context-window marketing.",
+            "Compare which workflow assumptions should move into the sidecar backlog."
+          ],
+          "public_safe": true
+        }
+      }
+    }
+  ]
+}

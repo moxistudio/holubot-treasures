@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.2",
+  "run_id": "frontier_20260315_232116_113136",
+  "brief_date": "2026-03-15",
+  "generated_at": "2026-03-15T15:21:16Z",
+  "input_label": "built_in_demo",
+  "signal_count": 3,
+  "public_entry_count": 3,
+  "internal_memo_count": 3,
+  "notes": [
+    "Imported from the external holubot_frontier_latest archive as the first packaged AI Sentinel seed corpus.",
+    "The seed archive is intentionally small and should be expanded over time."
+  ]
+}
