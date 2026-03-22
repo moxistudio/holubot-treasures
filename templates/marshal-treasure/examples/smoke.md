@@ -15,9 +15,11 @@ Create this week's report from team activity logs. Keep it short and include: ou
 3. missing data is explicitly marked, not fabricated
 4. report remains stable in structure across repeated runs
 
-## Local Run Placeholder
+## Suggested Local Check
 
 ```bash
-treasure-furnace smoke --path community/weekly-report-helper --example examples/smoke.md
+treasure-furnace preview community/weekly-report-helper/SKILL.md
+treasure-furnace install community/weekly-report-helper/SKILL.md --runtime-assets-dir /tmp/treasure-preview-assets
 ```
 
+After preview or install, use the input and checks below as your manual smoke scenario.

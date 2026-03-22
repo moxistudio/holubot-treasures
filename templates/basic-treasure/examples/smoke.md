@@ -16,9 +16,11 @@ Rewrite this update into a concise status note:
 3. does not invent extra facts
 4. stays concise and readable
 
-## Local Run Placeholder
+## Suggested Local Check
 
 ```bash
-treasure-furnace smoke --path community/email-polisher --example examples/smoke.md
+treasure-furnace preview community/email-polisher/SKILL.md
+treasure-furnace install community/email-polisher/SKILL.md --runtime-assets-dir /tmp/treasure-preview-assets
 ```
 
+After preview or install, use the input and checks below as your manual smoke scenario.

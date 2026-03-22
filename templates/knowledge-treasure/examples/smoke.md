@@ -15,9 +15,11 @@ What is our escalation path for a severity-1 outage, and what should happen in t
 3. uncertain or missing policy details are marked as "to-be-verified"
 4. no fabricated source titles or links
 
-## Local Run Placeholder
+## Suggested Local Check
 
 ```bash
-treasure-furnace smoke --path community/support-policy --example examples/smoke.md
+treasure-furnace preview community/support-policy/SKILL.md
+treasure-furnace install community/support-policy/SKILL.md --runtime-assets-dir /tmp/treasure-preview-assets
 ```
 
+After preview or install, use the input and checks below as your manual smoke scenario.

@@ -61,30 +61,30 @@ Your `SKILL.md` should include:
 
 Keep it focused and runnable. Avoid only writing product copy or marketing text.
 
-## Local Validation (P0 Placeholder Workflow)
+## Local Validation (P0 Workflow)
 
-The exact command interface may evolve, but local checks should match CI intent.
+Current P0 checks should match CI intent and the standalone `treasure-furnace` toolchain.
 
-Example placeholder commands:
+Example commands:
 
 ```bash
 # 1) catalog schema check
-treasure-furnace validate catalog --file catalog.yaml
+python scripts/validate_catalog.py catalog.yaml
 
-# 2) treasure directory structure check
-treasure-furnace validate structure --path community/<your-treasure-id>
+# 2) repository treasure directory check
+python scripts/validate_treasures.py catalog.yaml
 
-# 3) package metadata check
-treasure-furnace validate pack --file community/<your-treasure-id>/pack.yaml
+# 3) package compile and manifest validation
+treasure-furnace validate community/<your-treasure-id>
 
-# 4) skill presence and format check
-treasure-furnace validate skill --file community/<your-treasure-id>/SKILL.md
+# 4) preview the imported behavior before install
+treasure-furnace preview community/<your-treasure-id>/SKILL.md
 
-# 5) smoke run check
-treasure-furnace smoke --path community/<your-treasure-id> --example examples/smoke.md
+# 5) optional install dry run into a temp runtime assets directory
+treasure-furnace install community/<your-treasure-id>/SKILL.md --runtime-assets-dir /tmp/treasure-preview-assets
 ```
 
-If your local CLI naming is slightly different, keep the same five validation intents before opening a PR.
+Keep `examples/smoke.md` as the manual smoke scenario reviewers should check after preview/install. There is no dedicated `smoke` subcommand in the current P0 CLI.
 
 ## Pull Request Expectations
 

@@ -24,17 +24,17 @@ Add at least one knowledge source path used by your Treasure, for example:
 4. Tune the prompt in `runtime.steps.compose_answer`.
 5. Replace `examples/smoke.md` with a domain-relevant test.
 
-## Local Validation Placeholder
+## Local Validation
 
 ```bash
-treasure-furnace validate structure --path community/support-policy
-treasure-furnace validate pack --file community/support-policy/pack.yaml
-treasure-furnace validate skill --file community/support-policy/SKILL.md
-treasure-furnace smoke --path community/support-policy --example examples/smoke.md
+treasure-furnace validate community/support-policy
+treasure-furnace preview community/support-policy/SKILL.md
+treasure-furnace install community/support-policy/SKILL.md --runtime-assets-dir /tmp/treasure-preview-assets
 ```
+
+Use `examples/smoke.md` as the manual scenario checklist after preview or install.
 
 ## Example Treasure IDs
 
 - `deep-search`
 - `ai-sentinel-briefing`
-

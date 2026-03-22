@@ -1,5 +1,8 @@
 # Smoke Test
 
-treasure-furnace run ai-sentinel --example smoke
+```bash
+treasure-furnace preview https://github.com/moxistudio/holubot-treasures/tree/main/official/ai-sentinel
+treasure-furnace install https://github.com/moxistudio/holubot-treasures/tree/main/official/ai-sentinel --runtime-assets-dir /tmp/ai-sentinel-preview
+```
 
-This command launches the marshal workers to run a minimal signal collection/brief cycle. Since the knowledge base isn't bundled yet, replace the `<org>/ai-sentinel-knowledge` reference with your team-managed KB when validating the results.
+After preview or install, validate a minimal signal collection and briefing cycle with your local HoluBot runtime. Since the knowledge base isn't bundled yet, replace the KB reference with your team-managed knowledge repo or reference data when reviewing the results.

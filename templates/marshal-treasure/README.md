@@ -19,17 +19,17 @@ Use this template for production Treasures that run as a multi-step pipeline.
 4. Align `SKILL.md` constraints to your governance and quality requirements.
 5. Replace `examples/smoke.md` with your production-like input sample.
 
-## Local Validation Placeholder
+## Local Validation
 
 ```bash
-treasure-furnace validate structure --path community/weekly-report-helper
-treasure-furnace validate pack --file community/weekly-report-helper/pack.yaml
-treasure-furnace validate skill --file community/weekly-report-helper/SKILL.md
-treasure-furnace smoke --path community/weekly-report-helper --example examples/smoke.md
+treasure-furnace validate community/weekly-report-helper
+treasure-furnace preview community/weekly-report-helper/SKILL.md
+treasure-furnace install community/weekly-report-helper/SKILL.md --runtime-assets-dir /tmp/treasure-preview-assets
 ```
+
+Use `examples/smoke.md` as the manual production-like check after preview or install.
 
 ## Example Treasure IDs
 
 - `weekly-report`
 - `ops-digest`
-

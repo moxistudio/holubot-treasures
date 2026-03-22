@@ -37,11 +37,11 @@
 ## Quick Try
 
 ```bash
-treasure-furnace install https://github.com/<org>/holubot-treasures/tree/main/official/ai-sentinel
-treasure-furnace run ai-sentinel --example smoke
+treasure-furnace preview https://github.com/moxistudio/holubot-treasures/tree/main/official/ai-sentinel
+treasure-furnace install https://github.com/moxistudio/holubot-treasures/tree/main/official/ai-sentinel --runtime-assets-dir /tmp/ai-sentinel-preview
 ```
 
-> This will spin up the workers without a live KB; use your team-managed knowledge repo when integrating the full pipeline.
+> This validates the package shell without a bundled KB. Use your team-managed knowledge repo when integrating the full pipeline, and use `examples/smoke.md` as the manual verification prompt.
 
 ## Limitations
 

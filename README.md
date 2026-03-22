@@ -34,11 +34,11 @@ This repository is not for:
 Use hyphenated Treasure IDs from the catalog, for example `deep-search` and `weekly-report`.
 
 ```bash
-# Example 1: install from the market catalog through treasure-furnace
-treasure-furnace install deep-search --registry github:moxistudio/holubot-treasures
+# Example 1: install an official Treasure from its repository URL
+treasure-furnace install https://github.com/moxistudio/holubot-treasures/tree/main/official/deep-search
 
-# Example 2: install another official Treasure
-treasure-furnace install weekly-report --registry github:moxistudio/holubot-treasures
+# Example 2: install another official Treasure from the same repository
+treasure-furnace install https://github.com/moxistudio/holubot-treasures/tree/main/official/weekly-report
 ```
 
 Inside HoluBot chat (example):
@@ -63,7 +63,7 @@ Start with:
 - `templates/knowledge-treasure/`
 - `templates/marshal-treasure/`
 
-Then follow [CONTRIBUTING.md](CONTRIBUTING.md) for structure, local validation placeholders, and pull request expectations.
+Then follow [CONTRIBUTING.md](CONTRIBUTING.md) for structure, current P0 validation commands, and pull request expectations.
 
 Community submission area: `community/` (see `community/README.md`).
 
