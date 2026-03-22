@@ -2,8 +2,8 @@ meta:
   id: ai-sentinel
   name: AI Sentinel
   kind: treasure
-  version: 5.0.0
-  description: Subscription intelligence sentinel shell for capturing frontier signals, triage, and briefing; the knowledge base is managed separately and not bundled in this stage.
+  version: 5.1.0
+  description: Subscription intelligence Treasure for source-tiered monitoring, structured signal triage, 5-minute daily briefs, and event-centric AI industry memory; the production corpus can be extended externally.
   origin: market_stage
   api_version: holubot.treasure/v1
   demo_bundle: true
@@ -14,9 +14,15 @@ activation:
   - 情报哨兵
   - 前沿信号
   - 热点雷达
+  - AI日报
+  - 行业雷达
+  - OpenAI 最近
+  - Agent 趋势
   intents:
   - sentinel
   - frontier_radar
+  - daily_brief
+  - trend_watch
   hotpath_allowed: false
   route_preference: marshal
 skill:
@@ -27,6 +33,9 @@ tools:
   - source_collector
   - structured_worker
   - structured_writer
+  - knowledge_search
+  - query_long_memory
+  - llm_call
   - sync_worker
   - send_to_user
   mcp_servers:
@@ -37,27 +46,225 @@ governance:
   forbidden_tools:
   - credential_access
   - file_delete
+  - shell_exec
 runtime:
   kind: marshal
   steps:
+  - id: request_plan
+    action: llm_call
+    params:
+      prompt: |
+        你是 AI 哨兵任务分流器。请先把用户请求归类，再决定采集与输出方式。
+
+        允许模式：
+        - daily_brief：给出当日/近 72 小时重点情报简报
+        - entity_watch：跟踪某公司/模型/产品最近动向
+        - trend_radar：判断某主题升温、降温或分化
+        - compare：比较两个实体或路线最近进展
+        - follow_up：把当前问题和用户既有关注点或历史事件连起来
+
+        输出要求：
+        - 只输出 JSON
+        - 包含字段：
+          mode
+          focus_entities
+          focus_topics
+          time_window
+          audience
+          delivery_target
+          interest_tags
+          why_now
+
+        用户请求：
+        {task}
+      max_tokens: 280
+      temperature: 0.0
+    output: request_plan
+  - id: user_context
+    action: query_long_memory
+    depends_on:
+    - request_plan
+    params:
+      query: "AI Sentinel 用户最近关注主题、实体、趋势：{task}"
+      limit: 5
+    output: user_context
+  - id: playbook_context
+    action: knowledge_search
+    depends_on:
+    - request_plan
+    params:
+      query: "AI Sentinel DR-4 playbook：信源分级、三级分拣、日报结构、事件 schema、查询模式、质量门槛 {task}"
+      top_k: 5
+    output: playbook_context
   - id: source_collection
     action: source_collector
+    depends_on:
+    - request_plan
+    params:
+      request_plan: "{request_plan}"
+      preferred_tiers:
+      - tier_1
+      - tier_2
+      - tier_3
+      allow_tier_4_scan: true
+      freshness_window_hours: 72
+      minimum_length: 300
+      dedupe_similarity: 0.85
+      max_items: 40
+    output: source_collection
   - id: triage
     action: structured_worker
+    depends_on:
+    - request_plan
+    - user_context
+    - playbook_context
+    - source_collection
+    params:
+      prompt: |
+        你是 AI 行业情报分拣器。禁止直接凭感觉判断“重要”，必须先提取结构化特征，再按规则评分。
+
+        当前请求计划：
+        {request_plan}
+
+        用户近期待关注上下文：
+        {user_context}
+
+        内置方法论参考：
+        {playbook_context}
+
+        候选信号：
+        {source_collection}
+
+        粗筛规则：
+        - 优先 Tier 1 官方发布/论文/顶会 与 Tier 2 权威科技媒体
+        - 发布时间默认看近 72 小时，超窗默认降权
+        - 文本长度 < 300、纯 PR、重复融资稿、转述无新增信息，默认降权或剔除
+        - 语义相似度 > 0.85 视为同一事件
+
+        评分维度：
+        - impact
+        - scarcity
+        - timeliness
+        - verifiability
+
+        决策要求：
+        - 不允许直接输出“这条很重要”而不给结构化依据
+        - 高优先级默认需要一手源，或至少两个独立二手源
+        - 如果与用户近期待关注主题高度相关，可做 relevance boost，但必须说明原因
+        - 无法核实的项目必须标记 pending_verification=true
+
+        输出格式：
+        - 只输出 JSON
+        - 顶层字段：
+          mode
+          high_priority_signals
+          watchlist_signals
+          discarded_patterns
+          trend_hints
+          coverage_gaps
+        - 每条 signal 至少包含：
+          signal_id
+          title
+          source_tier
+          source_url
+          publish_date
+          importance_score
+          importance_level
+          impact_dimensions
+          entities
+          urgency
+          confidence
+          why_important
+          next_action
+          pending_verification
+      max_tokens: 1800
+      temperature: 0.1
+    output: triage
   - id: brief
     action: structured_writer
+    depends_on:
+    - request_plan
+    - user_context
+    - playbook_context
+    - triage
+    params:
+      prompt: |
+        你是 AI 哨兵主编，请把分拣结果写成适合手机端 3-5 分钟速读的情报简报。
+
+        请求计划：
+        {request_plan}
+
+        用户近期待关注上下文：
+        {user_context}
+
+        方法论参考：
+        {playbook_context}
+
+        结构化分拣结果：
+        {triage}
+
+        默认结构：
+        ━━━ AI 哨兵日报 | YYYY-MM-DD ━━━
+        📌 编辑一句话
+        ━━ 🔥 今日头条 ━━
+        What's new
+        Why it matters
+        来源 + 置信度
+        ━━ 📡 行业动态 ━━
+        ━━ 🔬 技术前沿 ━━
+        ━━ 🛠️ 今日工具 ━━
+        ━━ ⚡ 快讯 ━━
+        ━━ 📈 本周趋势雷达 ━━
+
+        写作要求：
+        - 每条重点至少写清事实核、影响核、来源核、置信度
+        - 先给结论，再给依据，不写空洞判断
+        - 对未核实信息明确写“待验证”
+        - 如果请求是 entity_watch / trend_radar / compare / follow_up，可以调整段落重心，但仍保持速读结构
+        - 如果存在与用户近期待关注相关的内容，单独提示“与你最近关注相关”
+        - 不要把中间 worker 原始数据直接堆给用户
+        - 不要把 PR 噪音包装成高价值情报
+      max_tokens: 1600
+      temperature: 0.15
+    output: daily_brief
   - id: publish
     action: sync_worker
+    depends_on:
+    - triage
+    - brief
+    params:
+      artifacts:
+      - signals.json
+      - daily_brief.json
+      - daily_brief.md
+      quality_gates:
+      - sources_required
+      - confidence_required
+      - top_story_has_why_it_matters
+      - unverified_must_be_labeled
+      - mobile_scan_friendly
+    output: publish_ticket
+  - id: reply
+    action: send_to_user
+    depends_on:
+    - brief
+    params:
+      content: "{daily_brief}"
 knowledge:
-  enabled: false
-  source_dirs: []
+  enabled: true
+  source_dirs:
+  - knowledge
   retrieval_mode: on_demand
 output_contract:
   format: markdown
-  max_tokens: 1600
+  max_tokens: 1800
   require_sources: true
   allow_fallback: true
   rules:
-  - 对外最少产出 signals.json、daily_brief.json、daily_brief.md
-  - 高优事项必须包含 source、evidence、impact、next_action、confidence
-  - 无法核实来源时必须明确标记为待验证
+  - 对外最少产出 signals.json、daily_brief.json、daily_brief.md。
+  - 今日头条必须包含 What's new、Why it matters、来源、置信度。
+  - 分拣必须先做结构化特征提取，再做 importance scoring，不允许“拍脑袋重要性”。
+  - 高优事项必须包含 source、evidence、impact、next_action、confidence。
+  - 无法核实来源时必须明确标记为待验证。
+  - 默认输出应适合手机端 3-5 分钟扫描阅读。
+  - 当实时信源不可用时，要明确指出缺失阶段，并给出下一步集成建议。

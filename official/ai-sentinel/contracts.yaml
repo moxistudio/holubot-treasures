@@ -1,0 +1,182 @@
+version: 1
+updated_at: "2026-03-22"
+scope: ai_sentinel_main_controller
+
+contracts:
+  request_plan:
+    type: object
+    required:
+      - mode
+      - focus_entities
+      - focus_topics
+      - time_window
+      - audience
+      - delivery_target
+      - interest_tags
+      - why_now
+    properties:
+      mode:
+        enum: [daily_brief, entity_watch, trend_radar, compare, follow_up]
+      focus_entities:
+        type: array
+      focus_topics:
+        type: array
+      time_window:
+        type: string
+      audience:
+        type: string
+      delivery_target:
+        enum: [mobile_brief, analyst_note, executive_scan]
+      interest_tags:
+        type: array
+      why_now:
+        type: string
+
+  signal_item:
+    type: object
+    required:
+      - signal_id
+      - title
+      - source_tier
+      - source_url
+      - publish_date
+      - importance_score
+      - importance_level
+      - impact_dimensions
+      - entities
+      - urgency
+      - confidence
+      - why_important
+      - next_action
+      - pending_verification
+    properties:
+      signal_id:
+        type: string
+      title:
+        type: string
+      source_tier:
+        enum: [tier_1, tier_2, tier_3, tier_4]
+      source_url:
+        type: string
+      publish_date:
+        type: string
+      importance_score:
+        type: number
+      importance_level:
+        enum: [high, medium, low]
+      impact_dimensions:
+        type: array
+      entities:
+        type: array
+      urgency:
+        enum: [24h, 72h, watch]
+      confidence:
+        type: number
+      why_important:
+        type: string
+      next_action:
+        type: string
+      pending_verification:
+        type: boolean
+
+  signals.json:
+    type: object
+    required:
+      - mode
+      - high_priority_signals
+      - watchlist_signals
+      - discarded_patterns
+      - trend_hints
+      - coverage_gaps
+    properties:
+      mode:
+        enum: [daily_brief, entity_watch, trend_radar, compare, follow_up]
+      high_priority_signals:
+        type: array
+      watchlist_signals:
+        type: array
+      discarded_patterns:
+        type: array
+      trend_hints:
+        type: array
+      coverage_gaps:
+        type: array
+
+  daily_brief.json:
+    type: object
+    required:
+      - edition_date
+      - editor_line
+      - lead_story
+      - industry_updates
+      - technical_frontier
+      - tool_of_the_day
+      - quick_hits
+      - trend_radar
+      - sources
+    properties:
+      edition_date:
+        type: string
+      editor_line:
+        type: string
+      lead_story:
+        type: object
+      industry_updates:
+        type: array
+      technical_frontier:
+        type: array
+      tool_of_the_day:
+        type: object
+      quick_hits:
+        type: array
+      trend_radar:
+        type: array
+      sources:
+        type: array
+
+  event_item:
+    type: object
+    required:
+      - entry_id
+      - version
+      - event_date
+      - publish_date
+      - title
+      - summary
+      - semantic_tags
+      - entities
+      - source_url
+      - source_tier
+      - importance_score
+      - confidence
+    properties:
+      entry_id:
+        type: string
+      parent_id:
+        type: string
+      version:
+        type: integer
+      event_date:
+        type: string
+      publish_date:
+        type: string
+      effective_date:
+        type: string
+      expiry_date:
+        type: string
+      title:
+        type: string
+      summary:
+        type: string
+      semantic_tags:
+        type: array
+      entities:
+        type: object
+      source_url:
+        type: string
+      source_tier:
+        enum: [tier_1, tier_2, tier_3, tier_4]
+      importance_score:
+        type: number
+      confidence:
+        type: number

@@ -97,7 +97,7 @@ treasures:
     source_kind: official
     knowledge:
       enabled: false
-      note: "Knowledge-base buildout is explicitly out of current P0 scope."
+      note: "DR-4 operating knowledge scaffold now ships in-package, but the subscription-grade production corpus remains external in current P0 scope."
     demo_ready: false
-    description: Subscription-style signal and intelligence treasure slot reserved for staged rollout.
+    description: Subscription-style AI intelligence Treasure with DR-4 source-tiering, signal-triage, and briefing scaffold, while the full production corpus remains externally managed.
     repo_path: official/ai-sentinel
