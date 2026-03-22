@@ -1,0 +1,298 @@
+version: 1
+updated_at: "2026-03-22"
+scope: ai_sentinel_mvp_source_registry
+notes:
+  - "Starter registry derived from the DR-4 eight-model synthesis."
+  - "Use this as an allowlist seed, not as the final production source inventory."
+  - "Weight expresses source authority, not direct importance of every item from that source."
+
+sources:
+  - id: openai-news
+    name: OpenAI News
+    tier: tier_1
+    weight: 0.99
+    cadence: 15m
+    locale: [en]
+    source_type: official
+    url: https://openai.com/news/
+    notes: First-party product and policy announcements.
+
+  - id: openai-research
+    name: OpenAI Research
+    tier: tier_1
+    weight: 0.99
+    cadence: 15m
+    locale: [en]
+    source_type: official
+    url: https://openai.com/research/
+    notes: First-party research output.
+
+  - id: anthropic-news
+    name: Anthropic News
+    tier: tier_1
+    weight: 0.98
+    cadence: 15m
+    locale: [en]
+    source_type: official
+    url: https://www.anthropic.com/news
+    notes: Official launches and policy positioning.
+
+  - id: anthropic-research
+    name: Anthropic Research
+    tier: tier_1
+    weight: 0.98
+    cadence: 15m
+    locale: [en]
+    source_type: official
+    url: https://www.anthropic.com/research
+    notes: First-party research and alignment updates.
+
+  - id: google-deepmind-blog
+    name: Google DeepMind Blog
+    tier: tier_1
+    weight: 0.98
+    cadence: 15m
+    locale: [en]
+    source_type: official
+    url: https://deepmind.google/discover/blog/
+    notes: Official model, product, and research narrative.
+
+  - id: meta-ai
+    name: Meta AI
+    tier: tier_1
+    weight: 0.97
+    cadence: 15m
+    locale: [en]
+    source_type: official
+    url: https://ai.meta.com/
+    notes: Meta AI and FAIR-facing updates.
+
+  - id: microsoft-research
+    name: Microsoft Research
+    tier: tier_1
+    weight: 0.97
+    cadence: 15m
+    locale: [en]
+    source_type: official
+    url: https://www.microsoft.com/en-us/research/
+    notes: Research updates and technical papers.
+
+  - id: xai-news
+    name: xAI News
+    tier: tier_1
+    weight: 0.96
+    cadence: 15m
+    locale: [en]
+    source_type: official
+    url: https://x.ai/news
+    notes: Official xAI announcements when available.
+
+  - id: mistral-news
+    name: Mistral News
+    tier: tier_1
+    weight: 0.96
+    cadence: 15m
+    locale: [en]
+    source_type: official
+    url: https://mistral.ai/news/
+    notes: Official product and model releases.
+
+  - id: cohere-blog
+    name: Cohere Blog
+    tier: tier_1
+    weight: 0.95
+    cadence: 15m
+    locale: [en]
+    source_type: official
+    url: https://cohere.com/blog
+    notes: Official model and enterprise workflow updates.
+
+  - id: arxiv-ai
+    name: arXiv AI Streams
+    tier: tier_1
+    weight: 0.97
+    cadence: 15m
+    locale: [en]
+    source_type: official
+    url: https://arxiv.org/
+    notes: Track cs.AI, cs.CL, cs.LG, cs.CV.
+
+  - id: neurips
+    name: NeurIPS
+    tier: tier_1
+    weight: 0.96
+    cadence: daily
+    locale: [en]
+    source_type: official
+    url: https://neurips.cc/
+    notes: Major conference announcements and accepted work.
+
+  - id: iclr
+    name: ICLR
+    tier: tier_1
+    weight: 0.96
+    cadence: daily
+    locale: [en]
+    source_type: official
+    url: https://iclr.cc/
+    notes: Major conference updates.
+
+  - id: icml
+    name: ICML
+    tier: tier_1
+    weight: 0.96
+    cadence: daily
+    locale: [en]
+    source_type: official
+    url: https://icml.cc/
+    notes: Major conference updates.
+
+  - id: acl
+    name: ACL Anthology / ACL
+    tier: tier_1
+    weight: 0.95
+    cadence: daily
+    locale: [en]
+    source_type: official
+    url: https://aclanthology.org/
+    notes: NLP research and publication stream.
+
+  - id: cb-insights
+    name: CB Insights
+    tier: tier_2
+    weight: 0.90
+    cadence: daily
+    locale: [en]
+    source_type: analyst
+    url: https://www.cbinsights.com/
+    notes: Paid-heavy startup, market, and funding intelligence.
+
+  - id: bloomberg-ai
+    name: Bloomberg AI / Tech
+    tier: tier_2
+    weight: 0.90
+    cadence: daily
+    locale: [en]
+    source_type: media
+    url: https://www.bloomberg.com/technology
+    notes: Strong for business and market-moving coverage.
+
+  - id: jiqizhixin
+    name: 机器之心
+    tier: tier_2
+    weight: 0.88
+    cadence: daily
+    locale: [zh]
+    source_type: media
+    url: https://www.jiqizhixin.com/
+    notes: China AI media with broad local ecosystem coverage.
+
+  - id: xinzhiyuan
+    name: 新智元
+    tier: tier_2
+    weight: 0.86
+    cadence: daily
+    locale: [zh]
+    source_type: media
+    url: https://www.xinzhiyuan.com/
+    notes: China AI media, useful for local product and research chatter.
+
+  - id: qbitai
+    name: 量子位
+    tier: tier_2
+    weight: 0.86
+    cadence: daily
+    locale: [zh]
+    source_type: media
+    url: https://www.qbitai.com/
+    notes: China AI media, useful for local launches and summaries.
+
+  - id: 36kr-ai
+    name: 36氪 AI
+    tier: tier_2
+    weight: 0.84
+    cadence: daily
+    locale: [zh]
+    source_type: media
+    url: https://36kr.com/
+    notes: Startup and business coverage with AI sections.
+
+  - id: huxiu-ai
+    name: 虎嗅 AI
+    tier: tier_2
+    weight: 0.82
+    cadence: daily
+    locale: [zh]
+    source_type: media
+    url: https://www.huxiu.com/
+    notes: Business and commentary layer, verify against primary sources.
+
+  - id: tmtpost-ai
+    name: 钛媒体 AI
+    tier: tier_2
+    weight: 0.82
+    cadence: daily
+    locale: [zh]
+    source_type: media
+    url: https://www.tmtpost.com/
+    notes: Business and industry trend coverage.
+
+  - id: github-trending
+    name: GitHub Trending
+    tier: tier_3
+    weight: 0.74
+    cadence: hourly
+    locale: [en]
+    source_type: repository
+    url: https://github.com/trending
+    notes: Early developer momentum signal, not proof of market importance.
+
+  - id: event-registry
+    name: Event Registry
+    tier: tier_3
+    weight: 0.76
+    cadence: hourly
+    locale: [en]
+    source_type: event_api
+    url: https://eventregistry.org/
+    notes: Event-level aggregation for clustering and trend detection.
+
+  - id: gdelt
+    name: GDELT Project
+    tier: tier_3
+    weight: 0.72
+    cadence: hourly
+    locale: [en]
+    source_type: event_api
+    url: https://www.gdeltproject.org/
+    notes: Broad event radar, useful for anomaly scanning.
+
+  - id: x-watchlist
+    name: X Curated Watchlists
+    tier: tier_4
+    weight: 0.55
+    cadence: realtime
+    locale: [en, zh]
+    source_type: social
+    url: https://x.com/
+    notes: Use only as an early signal layer, never as the sole evidence anchor.
+
+  - id: wechat-watchlist
+    name: WeChat AI Watchlist
+    tier: tier_4
+    weight: 0.54
+    cadence: realtime
+    locale: [zh]
+    source_type: watchlist
+    url: https://mp.weixin.qq.com/
+    notes: Useful for local signal emergence but requires cross-checking.
+
+  - id: reddit-localllama
+    name: Reddit LocalLLaMA
+    tier: tier_4
+    weight: 0.50
+    cadence: realtime
+    locale: [en]
+    source_type: social
+    url: https://www.reddit.com/r/LocalLLaMA/
+    notes: Good for early practitioner chatter, weak as a standalone evidence source.

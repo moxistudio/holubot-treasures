@@ -1,0 +1,49 @@
+{
+  "sample_only": true,
+  "mode": "daily_brief",
+  "high_priority_signals": [
+    {
+      "signal_id": "sig-sample-001",
+      "title": "Sample: agent observability capability becomes a release headline",
+      "source_tier": "tier_1",
+      "source_url": "https://example.com/sample-agent-observability",
+      "publish_date": "2026-03-22",
+      "importance_score": 8.3,
+      "importance_level": "high",
+      "impact_dimensions": ["technological", "economic"],
+      "entities": ["Vendor Sample", "agent SDK"],
+      "urgency": "24h",
+      "confidence": 0.88,
+      "why_important": "Shows observability moving from optional tooling into a platform narrative.",
+      "next_action": "Track whether peers follow with tracing and monitoring updates.",
+      "pending_verification": false
+    }
+  ],
+  "watchlist_signals": [
+    {
+      "signal_id": "sig-sample-002",
+      "title": "Sample: local ecosystem coverage picks up around agent evaluation workflows",
+      "source_tier": "tier_2",
+      "source_url": "https://example.com/sample-eval-workflow",
+      "publish_date": "2026-03-22",
+      "importance_score": 6.4,
+      "importance_level": "medium",
+      "impact_dimensions": ["ecosystem"],
+      "entities": ["evaluation workflow"],
+      "urgency": "72h",
+      "confidence": 0.69,
+      "why_important": "May indicate a broader shift toward measurable agent quality expectations.",
+      "next_action": "Wait for stronger first-party or multi-source support before upgrading.",
+      "pending_verification": true
+    }
+  ],
+  "discarded_patterns": [
+    "Pure PR without a meaningful product or policy change."
+  ],
+  "trend_hints": [
+    "Agent observability appears to be accelerating as a competitive surface."
+  ],
+  "coverage_gaps": [
+    "Need stronger Europe and Japan source coverage for this topic."
+  ]
+}

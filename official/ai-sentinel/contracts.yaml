@@ -3,6 +3,37 @@ updated_at: "2026-03-22"
 scope: ai_sentinel_main_controller
 
 contracts:
+  source_registry_entry:
+    type: object
+    required:
+      - id
+      - name
+      - tier
+      - weight
+      - cadence
+      - locale
+      - source_type
+      - url
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      tier:
+        enum: [tier_1, tier_2, tier_3, tier_4]
+      weight:
+        type: number
+      cadence:
+        enum: [5m, 15m, hourly, daily, realtime]
+      locale:
+        type: array
+      source_type:
+        enum: [official, media, analyst, repository, event_api, social, watchlist]
+      url:
+        type: string
+      notes:
+        type: string
+
   request_plan:
     type: object
     required:
@@ -178,5 +209,33 @@ contracts:
         enum: [tier_1, tier_2, tier_3, tier_4]
       importance_score:
         type: number
+      confidence:
+        type: number
+
+  trend_item:
+    type: object
+    required:
+      - trend_id
+      - title
+      - time_window
+      - direction
+      - summary
+      - supporting_events
+      - confidence
+    properties:
+      trend_id:
+        type: string
+      title:
+        type: string
+      time_window:
+        type: string
+      direction:
+        enum: [accelerating, emerging, diverging, weakening, stable]
+      summary:
+        type: string
+      supporting_events:
+        type: array
+      counter_signals:
+        type: array
       confidence:
         type: number

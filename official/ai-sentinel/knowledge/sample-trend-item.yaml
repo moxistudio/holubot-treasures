@@ -1,0 +1,16 @@
+sample_only: true
+version: 1
+trend_id: trend-agent-observability-sample
+title: "Sample Trend: agent observability is moving from niche tooling to platform expectation"
+time_window: "2026-03"
+direction: accelerating
+summary: >
+  Illustrative TrendItem showing how multiple event-level signals can be condensed
+  into a higher-level directional takeaway. This file is for schema alignment and
+  should be replaced by production trend synthesis when the external corpus is wired in.
+supporting_events:
+  - evt-sample-agent-observability-001
+  - evt-sample-agent-observability-002
+counter_signals:
+  - "Adoption remains uneven outside advanced developer teams."
+confidence: 0.81

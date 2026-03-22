@@ -15,7 +15,11 @@ Production teams can layer their own private corpus, analyst notes, and paid fee
 
 - `dr4-mvp-blueprint.md`
 - `source-tiering.md`
+- `source-registry.yaml`
 - `signal-triage-rubric.md`
+- `triage-scorecard.yaml`
 - `daily-brief-format.md`
 - `event-item-schema.md`
+- `sample-event-item.yaml`
+- `sample-trend-item.yaml`
 - `query-playbook.md`

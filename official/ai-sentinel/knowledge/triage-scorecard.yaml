@@ -1,0 +1,92 @@
+version: 1
+updated_at: "2026-03-22"
+scope: ai_sentinel_triage_scorecard
+
+defaults:
+  time_window_hours: 72
+  min_length_chars: 300
+  dedupe_similarity: 0.85
+  retrieval_top_k: 20
+  rerank_top_k: 5
+  min_query_score: 0.78
+
+importance_formula:
+  description: Weighted score computed from structured features, not direct LLM intuition.
+  weights:
+    impact: 0.35
+    scarcity: 0.20
+    timeliness: 0.20
+    verifiability: 0.25
+
+confidence_formula:
+  description: Confidence combines source authority, cross-source validation, and internal consistency.
+  weights:
+    source_authority: 0.40
+    multi_source_validation: 0.30
+    consistency: 0.30
+
+tiers:
+  tier_1:
+    authority_floor: 0.95
+    default_bias: promote
+  tier_2:
+    authority_floor: 0.80
+    default_bias: review
+  tier_3:
+    authority_floor: 0.60
+    default_bias: monitor
+  tier_4:
+    authority_floor: 0.40
+    default_bias: filter_hard
+
+importance_levels:
+  high:
+    min_score: 8.0
+    default_action: include_in_lead_or_industry
+  medium:
+    min_score: 6.0
+    default_action: watchlist_or_quick_hit
+  low:
+    min_score: 0.0
+    default_action: discard_or_hold
+
+discard_patterns:
+  - id: pure_pr
+    summary: Brand-forward announcement with no material change in capability, policy, or market position.
+  - id: repeated_funding_roundup
+    summary: Repeated funding coverage with no new strategic delta.
+  - id: thin_rewrite
+    summary: Rewritten summary that adds no first-hand evidence.
+  - id: rumor_without_corroboration
+    summary: Social speculation lacking authoritative support.
+
+rubric:
+  impact:
+    1: No clear product, research, policy, or ecosystem consequence.
+    3: Limited consequence for a narrow audience.
+    5: Likely to affect operator, developer, investor, or policy decisions.
+  scarcity:
+    1: Common pattern, widely repeated, little novelty.
+    3: Some novelty but not distinctive.
+    5: Rare or unusually high-signal development.
+  timeliness:
+    1: Old or stale beyond the normal window.
+    3: Recent but not urgent.
+    5: New and likely actionable within 24-72 hours.
+  verifiability:
+    1: Weak source or single unverified signal.
+    3: One decent source or partial corroboration.
+    5: First-party source or strong multi-source confirmation.
+
+personalization:
+  enabled: true
+  similarity_threshold: 0.70
+  boost_range: [1.0, 2.0]
+  guardrail: Never let relevance override weak evidence or low verifiability.
+
+human_review:
+  mvp_review_ratio: 0.30
+  priority_focus: top_20_percent
+  notes:
+    - Review high-score items first.
+    - Audit score drift monthly.

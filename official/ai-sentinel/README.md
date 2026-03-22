@@ -87,11 +87,24 @@ This Treasure is designed for a subscription intelligence product where the valu
 
 - [`knowledge/dr4-mvp-blueprint.md`](knowledge/dr4-mvp-blueprint.md)
 - [`knowledge/source-tiering.md`](knowledge/source-tiering.md)
+- [`knowledge/source-registry.yaml`](knowledge/source-registry.yaml)
 - [`knowledge/signal-triage-rubric.md`](knowledge/signal-triage-rubric.md)
+- [`knowledge/triage-scorecard.yaml`](knowledge/triage-scorecard.yaml)
 - [`knowledge/daily-brief-format.md`](knowledge/daily-brief-format.md)
 - [`knowledge/event-item-schema.md`](knowledge/event-item-schema.md)
+- [`knowledge/sample-event-item.yaml`](knowledge/sample-event-item.yaml)
+- [`knowledge/sample-trend-item.yaml`](knowledge/sample-trend-item.yaml)
 - [`knowledge/query-playbook.md`](knowledge/query-playbook.md)
 - [`contracts.yaml`](contracts.yaml)
+
+## Starter Structured Assets
+
+Beyond the markdown playbook, this package now includes machine-readable starter assets for faster integration:
+
+- a starter source registry with tier, cadence, locale, and authority weight
+- a triage scorecard with thresholds, scoring weights, and discard patterns
+- sample `EventItem` and `TrendItem` records to anchor downstream schema work
+- example `signals.json` and `daily_brief.md` outputs for manual QA and renderer alignment
 
 ## Quick Try
 
@@ -102,6 +115,11 @@ treasure-furnace install https://github.com/moxistudio/holubot-treasures/tree/ma
 ```
 
 Use [`examples/smoke.md`](examples/smoke.md) for manual production-like verification after preview or install.
+
+If you need renderer or QA alignment, also inspect:
+
+- [`examples/signals.sample.json`](examples/signals.sample.json)
+- [`examples/daily_brief.sample.md`](examples/daily_brief.sample.md)
 
 ## Output Shape
 

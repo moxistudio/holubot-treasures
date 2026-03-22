@@ -1,0 +1,41 @@
+sample_only: true
+version: 1
+entry_id: evt-sample-agent-observability-001
+parent_id: ""
+event_date: "2026-03-22"
+publish_date: "2026-03-22"
+effective_date: "2026-03-22"
+expiry_date: ""
+title: "Sample: major model vendor highlights agent observability and tracing improvements"
+summary: >
+  Illustrative EventItem for the AI Sentinel package. This sample shows how a single
+  event can capture title, summary, entities, source metadata, and scoring fields
+  without claiming to be a live production fact.
+key_quotes:
+  - "Illustrative quote placeholder for schema and renderer testing."
+semantic_tags:
+  - ai-agent
+  - observability
+  - developer-tools
+topic_vector:
+  - 0.12
+  - 0.44
+  - 0.31
+companies:
+  - Vendor Sample
+people: []
+technologies:
+  - agent tracing
+  - workflow observability
+products:
+  - sample-agent-sdk
+related_entries:
+  - evt-sample-agent-observability-000
+trend_ids:
+  - trend-agent-observability-sample
+source_url: https://example.com/sample-agent-observability
+source_tier: tier_1
+multi_source_count: 2
+importance_score: 8.3
+confidence: 0.88
+freshness_score: 0.94
